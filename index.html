@@ -1,65 +1,82 @@
-
+<!-- Versi MVC Friendly untuk Laravel -->
+<!-- views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CV - Nama Kamu</title>
-    <link href="style.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@yield('title', 'CV - [Nama Kamu]')</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
 </head>
 <body class="bg-[#222831] text-[#EEEEEE] font-sans">
-    <header class="bg-[#31363F] p-6 shadow-md">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-3xl font-bold text-[#76ABAE]">Halo, Saya Nama Kamu</h1>
-            <p class="text-sm mt-1">IT Staff | CMS & Frontend Designer | Laravel & JavaScript Enthusiast</p>
-        </div>
-    </header>
-
-    <main class="max-w-4xl mx-auto p-6">
-        <section class="mb-8">
-            <h2 class="section-title">Tentang Saya</h2>
-            <p class="text-content">
-                Saya memiliki pengalaman dalam membangun dan merancang alur frontend serta CMS berbasis Laravel dan JavaScript.
-                Fokus saya adalah membuat sistem yang mudah digunakan oleh user maupun admin, sekaligus menjaga tampilan tetap menarik dan fungsional.
-            </p>
-        </section>
-
-        <section class="mb-8">
-            <h2 class="section-title">Proyek Unggulan</h2>
-            <div class="project-card">
-                <h3 class="project-title">TokoInterior-Cianjur.id</h3>
-                <p class="text-sm mb-2">CMS & Frontend Flow Architect – Jan 2025 - Apr 2025</p>
-                <ul class="list-disc ml-6 text-sm space-y-1">
-                    <li>Merancang alur frontend dari homepage hingga CTA produk</li>
-                    <li>Menyusun struktur input-output CMS berbasis Laravel + JavaScript</li>
-                    <li>Menyesuaikan dashboard agar mudah digunakan oleh non-teknisi</li>
-                    <li>Membuat elemen interaktif dan logika tampilan berdasarkan kebutuhan promosi</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="mb-8">
-            <h2 class="section-title">Skillset</h2>
-            <div class="flex flex-wrap gap-2">
-                <span class="skill-badge">HTML</span>
-                <span class="skill-badge">CSS</span>
-                <span class="skill-badge">JavaScript</span>
-                <span class="skill-badge">Laravel</span>
-                <span class="skill-badge">CMS Design</span>
-                <span class="skill-badge">Tailwind</span>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="section-title">Kontak</h2>
-            <p>Email: kamu@email.com</p>
-            <p>LinkedIn: linkedin.com/in/kamu</p>
-            <p>GitHub: github.com/kamu</p>
-        </section>
-    </main>
-
-    <footer class="text-center text-xs text-[#999] mt-12 mb-4">
-        &copy; 2025 Nama Kamu. Dibuat dengan Tailwind dan GitHub Pages.
-    </footer>
+  @include('partials.header')
+  <main class="max-w-4xl mx-auto p-6">
+    @yield('content')
+  </main>
+  @include('partials.footer')
 </body>
 </html>
+
+<!-- views/partials/header.blade.php -->
+<header class="bg-[#31363F] p-6 shadow-md">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-[#76ABAE]">Halo, Saya {{ $name }}</h1>
+    <p class="text-sm mt-1">IT Staff | CMS & Frontend Designer | Laravel & JavaScript Enthusiast</p>
+  </div>
+</header>
+
+<!-- views/partials/footer.blade.php -->
+<footer class="text-center text-xs text-[#999] mt-12 mb-4">
+  &copy; 2025 {{ $name }}. Dibuat dengan Tailwind dan GitHub Pages.
+</footer>
+
+<!-- views/pages/cv.blade.php -->
+@extends('layouts.app')
+
+@section('title', 'CV - ' . $name)
+
+@section('content')
+<!-- Tentang Saya -->
+<section class="mb-8">
+  <h2 class="text-2xl font-semibold text-[#76ABAE] mb-2">Tentang Saya</h2>
+  <p class="text-[#EEEEEE] leading-relaxed">
+    Saya memiliki pengalaman dalam membangun dan merancang alur frontend serta CMS berbasis Laravel dan JavaScript. Fokus saya adalah membuat sistem yang mudah digunakan oleh user maupun admin, sekaligus menjaga tampilan tetap menarik dan fungsional.
+  </p>
+</section>
+
+<!-- Proyek -->
+<section class="mb-8">
+  <h2 class="text-2xl font-semibold text-[#76ABAE] mb-4">Proyek Unggulan</h2>
+  <div class="bg-[#31363F] p-4 rounded-xl shadow">
+    <h3 class="text-xl font-bold">TokoInterior-Cianjur.id</h3>
+    <p class="text-sm mb-2">CMS & Frontend Flow Architect – Jan 2025 - Apr 2025</p>
+    <ul class="list-disc ml-6 text-sm space-y-1">
+      <li>Merancang alur frontend dari homepage hingga CTA produk</li>
+      <li>Menyusun struktur input-output CMS berbasis Laravel + JavaScript</li>
+      <li>Menyesuaikan dashboard agar mudah digunakan oleh non-teknisi</li>
+      <li>Membuat elemen interaktif dan logika tampilan berdasarkan kebutuhan promosi</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Skillset -->
+<section class="mb-8">
+  <h2 class="text-2xl font-semibold text-[#76ABAE] mb-2">Skillset</h2>
+  <div class="flex flex-wrap gap-2">
+    @foreach($skills as $skill)
+      <span class="bg-[#76ABAE] text-[#222831] px-3 py-1 rounded-full text-sm">{{ $skill }}</span>
+    @endforeach
+  </div>
+</section>
+
+<!-- Kontak -->
+<section>
+  <h2 class="text-2xl font-semibold text-[#76ABAE] mb-2">Kontak</h2>
+  <p>Email: {{ $email }}</p>
+  <p>LinkedIn: {{ $linkedin }}</p>
+  <p>GitHub: {{ $github }}</p>
+</section>
+@endsection
