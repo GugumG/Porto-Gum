@@ -1,0 +1,22 @@
+
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+.section-title {
+    @apply text-2xl font-semibold text-[#76ABAE] mb-2;
+}
+
+.text-content {
+    @apply text-[#EEEEEE] leading-relaxed;
+}
+
+.project-card {
+    @apply bg-[#31363F] p-4 rounded-xl shadow;
+}
+
+.project-title {
+    @apply text-xl font-bold;
+}
+
+.skill-badge {
+    @apply bg-[#76ABAE] text-[#222831] px-3 py-1 rounded-full text-sm;
+}
